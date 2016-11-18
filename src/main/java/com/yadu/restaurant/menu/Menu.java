@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class Menu {
 
     public static final String INVALID_FILE_FORMAT = "Invalid file format";
+    public static final String NEGATIVE_VALUES_ARE_NOT_ALLOWED_IN_THIS_RESTAURANT = "Negative values are not allowed in this restaurant...!";
     private int maxTime = 0;
     private List<MenuItem> menuItemList;
 
@@ -29,7 +30,7 @@ public class Menu {
         try {
             Scanner scanner  = new Scanner(new FileInputStream(source));
             validateIfThereIsAnNextElement(scanner);
-            maxTime = scanner.nextInt();
+            maxTime = getNextValue(scanner);
             parseAndFillTheMenuItem(scanner);
 
         } catch (FileNotFoundException e) {
@@ -41,12 +42,20 @@ public class Menu {
 
     private void parseAndFillTheMenuItem(Scanner scanner) {
         validateIfThereIsAnNextElement(scanner);
-        int numberOfItems = scanner.nextInt();
+        int numberOfItems = getNextValue(scanner);
         menuItemList = new ArrayList<MenuItem>(numberOfItems);
         for(int i = 1; i<=numberOfItems; i++) {
             menuItemList.add(parseLineAndCreateMenuItem(scanner, i));
         }
 
+    }
+
+    private int getNextValue(Scanner scanner) {
+        int anInt = scanner.nextInt();
+        if(anInt < 0) {
+            throw new RuntimeException(NEGATIVE_VALUES_ARE_NOT_ALLOWED_IN_THIS_RESTAURANT);
+        }
+        return anInt;
     }
 
     private void validateIfThereIsAnNextElement(Scanner scanner) {
@@ -57,9 +66,9 @@ public class Menu {
 
     private MenuItem parseLineAndCreateMenuItem(Scanner scanner, int index) {
         validateIfThereIsAnNextElement(scanner);
-        int satisFaction = scanner.nextInt();
+        int satisFaction = getNextValue(scanner);
         validateIfThereIsAnNextElement(scanner);
-        int timeTakenToEat = scanner.nextInt();
+        int timeTakenToEat = getNextValue(scanner);
         return new MenuItem("Item_"+index, satisFaction, timeTakenToEat);
     }
 

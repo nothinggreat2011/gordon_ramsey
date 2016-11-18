@@ -1,5 +1,6 @@
 package com.yadu.restaurant.menu;
 
+import com.yadu.restaurant.TestUtil;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -42,7 +43,7 @@ public class MenuTest {
     @Test
     public void shouldBeAbleToParseTheFileAndBuildMenu() {
 
-        File file = new File(getTestResource("TestThatWeAreAbleToParseTheFile.txt"));
+        File file = new File(TestUtil.getTestResource("TestThatWeAreAbleToParseTheFile.txt"));
         Menu menu = new Menu(file);
         Assert.assertNotNull(menu);
         Assert.assertNotNull(menu.getMenuItemList());
@@ -53,21 +54,28 @@ public class MenuTest {
     public void shouldNotBeAbleToParseTheFileWhenTheFileIsEmpty() {
         expectedException.expect(RuntimeException.class);
         expectedException.expectMessage(Menu.INVALID_FILE_FORMAT);
-        File file = new File(getTestResource("Empty.txt"));
+        File file = new File(TestUtil.getTestResource("Empty.txt"));
         new Menu(file);
     }
+
+    @Test
+    public void shouldNotBeAbleToParseTheFileWhenTheFileContainsNegativeElements() {
+        expectedException.expect(RuntimeException.class);
+        expectedException.expectMessage(Menu.NEGATIVE_VALUES_ARE_NOT_ALLOWED_IN_THIS_RESTAURANT);
+        File file = new File(TestUtil.getTestResource("NegativeData.txt"));
+        new Menu(file);
+    }
+
 
     @Test
     public void shouldNotBeAbleToParseTheFileWhenTheFileIsHavingLessData() {
         expectedException.expect(RuntimeException.class);
         expectedException.expectMessage(Menu.INVALID_FILE_FORMAT);
-        File file = new File(getTestResource("LessData.txt"));
+        File file = new File(TestUtil.getTestResource("LessData.txt"));
         new Menu(file);
     }
 
 
-    private String getTestResource(String name) {
-        return this.getClass().getClassLoader().getResource(name).getFile();
-    }
+  
 
 }

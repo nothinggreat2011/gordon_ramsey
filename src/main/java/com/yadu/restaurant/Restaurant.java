@@ -19,7 +19,9 @@ public class Restaurant {
 
     public void serveFood(File file) {
 
+        System.out.println("Calculating the maximum satisfaction.....");
         Menu menu = new Menu(file);
-        maximumSatisfactionCalculator.calculate(menu);
+        int calculate = maximumSatisfactionCalculator.calculate(menu);
+        System.out.println("Maximum satisfaction is " + calculate);
     }
 }

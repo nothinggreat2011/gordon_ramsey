@@ -1,7 +1,6 @@
 package com.yadu.restaurant.driver;
 
 import com.yadu.restaurant.Restaurant;
-import com.yadu.restaurant.calculator.MaximumSatisfactionCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -28,7 +27,19 @@ public class Application implements CommandLineRunner{
 
 
     public void run(String... strings) throws Exception {
-        File souce = new File(strings[0]);
-        restaurant.serveFood(souce);
+        displaySomeLines();
+
+        String path = strings[0];
+        if(path == null || path.isEmpty()) {
+            throw new RuntimeException("Cannot run application without file source. ");
+        }
+        restaurant.serveFood(new File(path));
+
+        displaySomeLines();
+    }
+
+    private void displaySomeLines() {
+        System.out.println("================================+++++++++++++++++++++++++++++++++===================================");
+        System.out.println("================================+++++++++++++++++++++++++++++++++===================================");
     }
 }
