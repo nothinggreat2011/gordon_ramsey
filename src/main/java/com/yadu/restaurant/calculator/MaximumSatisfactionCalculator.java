@@ -1,5 +1,6 @@
 package com.yadu.restaurant.calculator;
 
+import com.yadu.restaurant.menu.Menu;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,8 +9,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class MaximumSatisfactionCalculator {
 
-    public void calculate(){
-        System.out.println("Calculating.....");
+    public void calculate(Menu menu){
+
+
     }
 
 }

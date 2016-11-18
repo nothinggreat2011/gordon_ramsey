@@ -8,6 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+import java.io.File;
+
 /**
  * Created by ybhushan on 18/11/16.
  */
@@ -26,6 +28,7 @@ public class Application implements CommandLineRunner{
 
 
     public void run(String... strings) throws Exception {
-        restaurant.serveFood();
+        File souce = new File(strings[0]);
+        restaurant.serveFood(souce);
     }
 }
