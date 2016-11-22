@@ -28,8 +28,15 @@ public class Application implements CommandLineRunner{
 
     public void run(String... strings) throws Exception {
         displaySomeLines();
-
-        String path = strings[0];
+        
+        String path = null;
+        if(strings == null ||  strings.length == 0) {
+        	path = "run_data/data.txt";
+        }
+        else {
+        	path = strings[0];
+        }
+        
         if(path == null || path.isEmpty()) {
             throw new RuntimeException("Cannot run application without file source. ");
         }
